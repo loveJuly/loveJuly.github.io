@@ -12,7 +12,7 @@
     
     <title>
         
-            Hello Blog | 
+            iOS8以后及iOS10以后的本地推送 | 
         
         kinmo三维空间
     </title>
@@ -65,18 +65,18 @@
     <!-- The Open Graph protocol -->
     <meta property="og:url" content="http://yoursite.com">
     <meta property="og:type" content="blog">
-    <meta property="og:title" content="Hello Blog | kinmo三维空间">
+    <meta property="og:title" content="iOS8以后及iOS10以后的本地推送 | kinmo三维空间">
     <meta property="og:image" content="/img/favicon.png" />
     <meta property="og:description" content="">
     
 
     
-        <meta property="article:published_time" content="8月 06, 2017" />
-        <meta property="article:modified_time" content="8月 06, 2017" />
+        <meta property="article:published_time" content="8月 08, 2017" />
+        <meta property="article:modified_time" content="8月 08, 2017" />
     
 
     <!-- The Twitter Card protocol -->
-    <meta name="twitter:title" content="Hello Blog | kinmo三维空间">
+    <meta name="twitter:title" content="iOS8以后及iOS10以后的本地推送 | kinmo三维空间">
     <meta name="twitter:description" content="">
     <meta name="twitter:image" content="/img/favicon.png">
     <meta name="twitter:card" content="summary_large_image" />
@@ -84,7 +84,7 @@
 
     <!-- Add canonical link for SEO -->
     
-        <link rel="canonical" href="http://yoursite.com/2017/08/06/Hello_Blog/index.html" />
+        <link rel="canonical" href="http://yoursite.com/2017/08/08/iOS8以后及iOS10以后的本地推送/index.html" />
     
 
     <!-- Structured-data for SEO -->
@@ -110,10 +110,10 @@
         },
         "description": "若有所得便是人生，若有所憾也是人生。"
     },
-    "headline": "Hello Blog",
-    "url": "http://yoursite.com/2017/08/06/Hello_Blog/index.html",
-    "datePublished": "8月 06, 2017",
-    "dateModified": "8月 06, 2017",
+    "headline": "iOS8以后及iOS10以后的本地推送",
+    "url": "http://yoursite.com/2017/08/08/iOS8以后及iOS10以后的本地推送/index.html",
+    "datePublished": "8月 08, 2017",
+    "dateModified": "8月 08, 2017",
     "description": "",
     "mainEntityOfPage": {
         "@type": "WebPage",
@@ -419,25 +419,68 @@
     
         <div class="post-content_wrapper">
             <p class="post-title">
-                Hello Blog
+                iOS8以后及iOS10以后的本地推送
             </p>
-            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>搭建个人博客这个念头其实很早就有了，不过却一直因为各种原因搁置下来了。最近在新的公司从0-&gt;1上线了自己写的APP，空闲的时间里也更新了自己的APP<a href="http://itunes.apple.com/gb/app/yi-dong-cai-bian/id1099239836?mt=8" target="_blank" rel="external">一个人（番茄钟）</a>。这过程中也累积了很过零零碎碎的经验和想法，所以下定决心搭建一个博客把这些整理并记录下来。</p>
-<h1 id="一下午的忙碌"><a href="#一下午的忙碌" class="headerlink" title="一下午的忙碌"></a>一下午的忙碌</h1><p>抽了几个小时的时间，使用Hexo+Github搭建了这个博客，顺便学习了一下Markdown语法。现在网上教程也很多，不过也很乱。在这里我就说一下搭建这个博客遇到的坑吧，顺便记录一下Markdown的一些基础语法。</p>
+            <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在弄本地定时推送的功能，遇到了一个小bug，没留意就直接上线了，挺头疼的。在这里记录一下，顺道梳理一下iOS8以后及iOS10以后的本地推送。</p>
+<h1 id="iOS8以后的本地推送"><a href="#iOS8以后的本地推送" class="headerlink" title="iOS8以后的本地推送"></a>iOS8以后的本地推送</h1><ol>
+<li>注册通知<br>在iOS8以后通知需要注册后才能发送，所以我们需要知道怎么注册通知。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">if ([UIDevice currentDevice].systemVersion.doubleValue &gt;= 8.0 &amp; [UIDevice currentDevice].systemVersion.doubleValue &lt; 10.0) &#123;</div><div class="line">// ----- 通知类型</div><div class="line">UIUserNotificationType type =  UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound;</div><div class="line">// ----- 设置推送类型</div><div class="line">UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:type</div><div class="line">categories:nil];</div><div class="line">// ----- 注册</div><div class="line">[[UIApplication sharedApplication] registerUserNotificationSettings:settings];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>这注册代码在 <code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(nullable NSDictionary *)launchOptions</code>方法里面添加。<br>上述注册通知的方法，想深入了解的<a href="http://www.jianshu.com/p/803bfaae989e" target="_blank" rel="external">点击这里</a>。</p>
+<ol>
+<li>构建UILocalNotification<br><code>UILocalNotification *notification = [[UILocalNotification alloc] init];</code></li>
+<li>配置UILocalNotification</li>
+<li>属性</li>
+</ol>
 <ul>
-<li>博客坑<br>具体的流程我就不说了，个人在搭建的时候遇到的主要问题就是：在GitHub上创建仓库的时候，一定要使用username来作为博客地址的开头（username.github.io），我是用了别的名称来命名的（也不知道是不是一个低级错误😂）。</li>
-</ul>
-<ul>
-<li>Markdown语法</li>
+<li><p>fireDate 设定触发时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NSDate *fireDate = [NSDate dateWithTimeIntervalSinceNow:5];</div><div class="line">notification.fireDate = fireDate;</div></pre></td></tr></table></figure>
+</li>
+<li><p>timeZone 使用本地时区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">notification.timeZone = [NSTimeZone localTimeZone];</div></pre></td></tr></table></figure>
+</li>
+<li><p>repeatInterval 设定重复的间隔，可以是每个星期，每天等</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">notification.repeatInterval = kCFCalendarUnitDay;</div></pre></td></tr></table></figure>
+</li>
+<li><p>repeatCalendar 设定系统重复触发通知的参考日历，如果不设置则参考系统日历</p>
+</li>
+<li>region 根据位置触发通知的区域</li>
+<li>regionTriggersOnce 布尔值，如果为YES：进入设定区域后通知触发一次，如果为NO：每次进入和退出设定区域都会触发通知</li>
+<li>alertBody 设定通知的内容</li>
+<li>soundName 设定通知被触发的时候播放的声音</li>
+<li>applicationIconBadgeNumber 应用图标右上角的数字</li>
+<li>userInfo 通知传递数据的NSDictionary</li>
 </ul>
 <ol>
-<li>标题写法<br>语法：“# 标题”，标题一共支持六级，一级标题前面一个#号，二级标题前面两个#号…以此类推。</li>
-<li>无序列表<br>语法：“* 文字”或者“- 文字”or”+ 文字”<br><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fia572coohj303d01hq2r.jpg" alt="无序列表"></li>
-<li>有序列表<br>语法：“1. 文字”<br><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fia57eyx7mj303g01rt8j.jpg" alt="有序列表"></li>
-<li>插入链接<br>语法：中括号里面写的是<strong>链接描述</strong>，括号里面写的是<strong>链接地址</strong><br><img src="https://ws3.sinaimg.cn/large/006tNc79gy1fia57r32i2j305u00jt8k.jpg" alt="插入链接"></li>
-<li>插入图片<br>语法：首先是一个感叹号，然后接中括号和括号，中括号里面写的是<strong>图片描述</strong>，括号里面写的是<strong>图片地址</strong>。ps:图片地址是通过图床获取的，这里介绍一下图床的含义：图床就是专门用来存放图片，同时允许你把图片对外连接的网上空间。<a href="https://itunes.apple.com/cn/app/id1101244278?mt=12" target="_blank" rel="external">这里提供Mac端的图床软件，好用、良心.</a><br><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fia580gyfbj30fh00k0sr.jpg" alt="插入图片"></li>
-<li>插入代码<br>语法：<br><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fia588z01nj30d603y74p.jpg" alt="插入代码·语法"><br>效果：<br><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fia58h160qj30gf03sjrv.jpg" alt="插入代码·效果"></li>
-<li>粗体与斜体<br>语法：<br><img src="https://ws2.sinaimg.cn/large/006tNc79gy1fia58mtn46j303u00kjr7.jpg" alt="粗体与斜体·语法"><br>效果：<br><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fia58sl8doj303100ra9v.jpg" alt="粗体与斜体·效果"><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1>到这里，个人博客的一些准备工作就差不多了。希望以后能做到一周三更吧😂</li>
+<li>发送通知</li>
 </ol>
+<ul>
+<li>立即发送<br><code>- (void)presentLocalNotificationNow:(UILocalNotification *)notification</code></li>
+<li>按配置的时间发送<br><code>- (void)scheduleLocalNotification:(UILocalNotification *)notification</code></li>
+</ul>
+<ol>
+<li>取消通知</li>
+</ol>
+<ul>
+<li>取消指定的通知<br><code>- (void)cancelLocalNotification:(UILocalNotification *)notification</code></li>
+<li><p>取消所有通知<br><code>- (void)cancelAllLocalNotifications</code></p>
+</li>
+<li><p>例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 获取所有本地通知数组</div><div class="line">NSArray *localNotifications = [UIApplication sharedApplication].scheduledLocalNotifications;</div><div class="line">for (UILocalNotification *notification in localNotifications) &#123;</div><div class="line">NSDictionary *userInfo = notification.userInfo;</div><div class="line">if (userInfo) &#123;</div><div class="line">// 根据设置通知参数时指定的key来获取通知参数</div><div class="line">NSString *info = userInfo[@&quot;akey&quot;];</div><div class="line"></div><div class="line">// 如果找到需要取消的通知，则取消</div><div class="line">if (info != nil) &#123;</div><div class="line">[[UIApplication sharedApplication] cancelLocalNotification:notification];</div><div class="line">break;</div><div class="line">&#125;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li>处理UILocalNotification<br>在<code>- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification</code>方法中做通知处理。比如清除应用图标右上角的小红点。</li>
+</ol>
+<ul>
+<li>清除小红点<br><code>[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];</code></li>
+</ul>
+<h1 id="iOS10以后的本地推送"><a href="#iOS10以后的本地推送" class="headerlink" title="iOS10以后的本地推送"></a>iOS10以后的本地推送</h1><ul>
+<li><a href="http://www.jianshu.com/p/b74e52e866fc" target="_blank" rel="external">UserNotifications的细节介绍(自己懒得整理了😂)</a></li>
+<li>iOS10新框架实现定时本地推送例子<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// ----- 第一步是去AppDelegate.m里面注册，这里就不说了，自己看文章去。</div><div class="line">UNMutableNotificationContent* content = [[UNMutableNotificationContent alloc] init];</div><div class="line">content.body = [NSString localizedUserNotificationStringForKey:@&quot;新的一天开始啦，赶紧起来写代码😊&quot; arguments:nil];</div><div class="line">content.sound = [UNNotificationSound defaultSound];</div><div class="line"></div><div class="line">NSDateComponents *components = [[NSDateComponents alloc] init];</div><div class="line">components.hour = 9;</div><div class="line">//        components.second = 30;// ----- 本人遇到的坑就在这里：如果你下面使用了UNCalendarNotificationTrigger来实现定时本地推送的话，在时间这里设置了秒的时间，经过本人的大概测试：会在你设置的hour对应的小时内（比如9点，就是在9点这个时间段里），每隔1分钟就会触发一次通知...</div><div class="line">UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:components repeats:YES];</div><div class="line">UNNotificationRequest* request = [UNNotificationRequest requestWithIdentifier:@&quot;meiTianJiuDian&quot;</div><div class="line">content:content trigger:trigger];</div><div class="line">//添加推送成功后的处理！</div><div class="line">[center addNotificationRequest:request withCompletionHandler:^(NSError * _Nullable error) &#123;</div><div class="line"></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这个UserNotifications新的通知框架无疑让消息提醒的呈现更加的多元化了，可以用来实现很多很酷的呈现方式，还需要用心多多研究。</p>
 
         </div>
     
@@ -459,19 +502,19 @@
             <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
     <!-- Prev Nav -->
     
-        <a href="/2017/08/08/iOS8以后及iOS10以后的本地推送/" id="post_nav-newer" class="prev-content">
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
-                <i class="material-icons">arrow_back</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            新篇
-        </a>
-    
 
     <!-- Section Spacer -->
     <div class="section-spacer"></div>
 
     <!-- Next Nav -->
+    
+        <a href="/2017/08/06/Hello_Blog/" id="post_nav-older" class="next-content">
+            旧篇
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon mdl-color--white mdl-color-text--grey-900" role="presentation">
+                <i class="material-icons">arrow_forward</i>
+            </button>
+        </a>
     
 </nav>
 
